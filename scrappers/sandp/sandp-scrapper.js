@@ -45,7 +45,7 @@ function scrapeRating() {
                         let symbol = results[index].symbol
                         let id = results[index].id
                         request(getHTTPReqURL(symbol), (err, resp, body) => {
-                            if (err || resp.statusCode !== 200) log({timestamp: moment().format('YYYY-MM-DD HH:mm:ss')}, 'error: ', symbol, err)
+                            if (err || resp.statusCode !== 200) log(err)
                             let $ = cheerio.load(body)
                             let rating = $(sandpsettings.RATING_DOM_CLASS).text()
                             log(id + ' - ' + symbol + ' --> ' + rating)
