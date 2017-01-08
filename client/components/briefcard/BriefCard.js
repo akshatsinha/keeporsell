@@ -2,6 +2,8 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { briefCardRequest } from '../../actions/briefCardActions'
 
+require('../../styles/briefcard.css')
+
 class BriefCard extends React.Component {
 
     constructor() {
@@ -23,10 +25,10 @@ class BriefCard extends React.Component {
     symbolCard() {
         return this.state.allSymbolsBrief.map((info) => {
             return (
-                <li key={info.id}>
-                    {info.symbol}<br />
-                    {info.name}<br />
-                    {info.sector}
+                <li key={info.id} className="bc-container">
+                    <h2>{info.symbol}</h2>
+                    <h4>{info.name}</h4>
+                    <p>{info.sector}</p>
                 </li>
             )
         })
@@ -34,9 +36,7 @@ class BriefCard extends React.Component {
 
     render() {
         return (
-            <ul>
-                { this.symbolCard() }
-            </ul>
+            <ul className="list-unstyled">{ this.symbolCard() }</ul>
         )
     }
 }

@@ -1,0 +1,7 @@
+.bc-container {
+    height: 200px;
+    border: 1px dashed #333;
+    margin: 40px 0;
+    padding: 20px;
+    box-sizing: border-box;
+}
