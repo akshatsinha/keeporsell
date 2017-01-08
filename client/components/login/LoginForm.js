@@ -1,17 +1,16 @@
 import React from 'react'
 
-class SignupForm extends React.Component {
+class LoginForm extends React.Component {
 
     constructor() {
         super()
 
         this.state = {
             email: '',
-            password: '',
-            isLoading: false
+            password: ''
         }
 
-        this.onSubmit = this.onSubmit.bind(this) // needed to bind 'this' to the context of the class, not event in that func
+        this.submitLogin = this.submitLogin.bind(this)
     }
 
     onChange() {
@@ -21,17 +20,14 @@ class SignupForm extends React.Component {
         })
     }
 
-    onSubmit(e) {
+    submitLogin(e) {
         e.preventDefault()
-        console.log('submitting: ', this.state)
-        this.props.userSignupRequest({email: this.state.email, password: this.state.password})
+        this.props.loginRequest({email: this.state.email, password: this.state.password})
     }
 
     render() {
         return (
-            <form onSubmit={ this.onSubmit } >
-                <h1>Join our community!</h1>
-
+            <form onSubmit={ this.submitLogin }>
                 <div className="form-group">
                     <label className="control-label">Email</label>
                     <input
@@ -39,10 +35,9 @@ class SignupForm extends React.Component {
                         name="email"
                         className="form-control"
                         value={ this.state.email }
-                        onChange={ (e) => this.onChange() }
+                        onChange={ () => this.onChange() }
                         ref="email" />
                 </div>
-
                 <div className="form-group">
                     <label className="control-label">Password</label>
                     <input
@@ -50,22 +45,21 @@ class SignupForm extends React.Component {
                         name="password"
                         className="form-control"
                         value={ this.state.password }
-                        onChange={ (e) => this.onChange() }
+                        onChange={ () => this.onChange() }
                         ref="password" />
                 </div>
 
                 <div className="form-group">
-                    <button className="btn btn-primary btn-lg">Sign Up!</button>
+                    <button className="btn btn-primary btn-lg">Login</button>
                 </div>
 
             </form>
         )
     }
-
 }
 
-SignupForm.propTypes = {
-    userSignupRequest: React.PropTypes.func.isRequired
+LoginForm.propTypes = {
+    loginRequest: React.PropTypes.func.isRequired
 }
 
-export default SignupForm
+export default LoginForm
