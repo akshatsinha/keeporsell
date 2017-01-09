@@ -1,7 +1,22 @@
 .bc-container {
-    height: 200px;
+    /*height: 250px;*/
     border: 1px dashed #333;
     margin: 40px 0;
     padding: 20px;
+    padding-bottom: 40px;
     box-sizing: border-box;
+}
+
+.bc-left-text,
+.bc-center-text {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.bc-left-text {
+    min-width: 200px;
+}
+
+.bc-center-text {
+    padding-left: 40px;
 }
