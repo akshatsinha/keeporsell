@@ -2,6 +2,7 @@ import React from 'react'
 import { connect } from 'react-redux'
 import { briefCardRequest } from '../../actions/briefCardActions'
 
+const moment  = require('moment')
 require('../../styles/briefcard.css')
 
 class BriefCard extends React.Component {
@@ -15,11 +16,31 @@ class BriefCard extends React.Component {
     }
 
     componentWillMount() {
-        this.props.briefCardRequest().then((response) => {
+        let today = moment().format('YYYY-MM-DD')
+        let bcWeeklyCookie = localStorage.getItem('bcWeekly')
+        let readFromLocalStorage = false
+        let storedData = undefined
+
+        if (bcWeeklyCookie) {
+            storedData = JSON.parse(decodeURIComponent(bcWeeklyCookie))
+            if (Object.keys(storedData)[0] === today && storedData[today].length) readFromLocalStorage = true
+            else localStorage.removeItem('bcWeekly')
+        }
+
+        if (readFromLocalStorage) {
             this.setState({
-                allSymbolsBrief: response.data
+                allSymbolsBrief: storedData[today]
             })
-        })
+        } else {
+            this.props.briefCardRequest().then((response) => {
+                let cacheVal = {}
+                cacheVal[today] = response.data
+                localStorage.setItem('bcWeekly', encodeURIComponent(JSON.stringify(cacheVal)))
+                this.setState({
+                    allSymbolsBrief: response.data
+                })
+            })
+        }
     }
 
     symbolCard() {
